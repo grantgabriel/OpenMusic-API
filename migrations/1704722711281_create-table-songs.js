@@ -1,5 +1,5 @@
 exports.up = (pgm) => {
-  pgm.createTable('notes', {
+  pgm.createTable('songs', {
     id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
@@ -8,19 +8,23 @@ exports.up = (pgm) => {
       type: 'TEXT',
       notNull: true,
     },
-    body: {
+    year: {
+      type: 'INTEGER',
+      notNull: true,
+    },
+    genre: {
       type: 'TEXT',
       notNull: true,
     },
-    tags: {
+    performer: {
       type: 'TEXT[]',
       notNull: true,
     },
-    created_at: {
+    duration: {
       type: 'TEXT',
       notNull: true,
     },
-    updated_at: {
+    albumid: {
       type: 'TEXT',
       notNull: true,
     },
@@ -28,5 +32,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('notes');
+  pgm.dropTable('songs');
 };
