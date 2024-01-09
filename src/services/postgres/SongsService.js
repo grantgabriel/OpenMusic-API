@@ -9,7 +9,7 @@ class AlbumsService {
     this._pool = new Pool();
   }
 
-  async addAlbum({ name, year }) {
+  async addSong({ name, year }) {
     const idPrefix = 'album-';
     const id = idPrefix.concat(nanoid(16));
     const query = {
