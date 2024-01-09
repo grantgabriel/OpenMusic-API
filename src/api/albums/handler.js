@@ -9,7 +9,7 @@ class AlbumsHandler {
     this.deleteAlbumByIdHandler = this.deleteAlbumByIdHandler.bind(this);
   }
 
-  async postNoteHandler(request, h) {
+  async postAlbumHandler(request, h) {
     this._validator.validateNotePayload(request.payload);
     const { title = 'untitled', body, tags } = request.payload;
 
@@ -26,18 +26,7 @@ class AlbumsHandler {
     return response;
   }
 
-  async getNotesHandler() {
-    const notes = await this._service.getNotes();
-
-    return {
-      status: 'success',
-      data: {
-        notes,
-      },
-    };
-  }
-
-  async getNoteByIdHandler(request) {
+  async getAlbumByIdHandler(request) {
     const { id } = request.params;
 
     const note = await this._service.getNoteById(id);
@@ -50,7 +39,7 @@ class AlbumsHandler {
     };
   }
 
-  putNoteByIdHandler(request) {
+  putAlbumByIdHandler(request) {
     this._validator.validateNotePayload(request.payload);
     const { id } = request.params;
 
@@ -62,7 +51,7 @@ class AlbumsHandler {
     };
   }
 
-  deleteNoteByIdHandler(request) {
+  deleteAlbumByIdHandler(request) {
     const { id } = request.params;
 
     this._service.deleteNoteById(id);
