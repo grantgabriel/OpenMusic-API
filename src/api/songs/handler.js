@@ -43,13 +43,13 @@ class SongsHandler {
     return response;
   }
 
-  async getNotesHandler() {
-    const notes = await this._service.getNotes();
+  async getSongsHandler() {
+    const songs = await this._service.getsongs();
 
     return {
       status: 'success',
       data: {
-        notes,
+        songs,
       },
     };
   }

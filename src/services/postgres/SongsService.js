@@ -1,29 +1,41 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
-const { mapAlbumsDBToModel } = require('../../utils');
+const { mapSongsDBToModel } = require('../../utils');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
-class AlbumsService {
+class SongsService {
   constructor() {
     this._pool = new Pool();
   }
 
-  async addSong({ name, year }) {
-    const idPrefix = 'album-';
+  async addSong({
+    title,
+    year,
+    genre,
+    performer,
+    duration,
+    albumId,
+  }) {
+    const idPrefix = 'song-';
     const id = idPrefix.concat(nanoid(16));
     const query = {
-      text: 'INSERT INTO albums VALUES($1, $2, $3) RETURNING id',
-      values: [id, name, year],
+      text: 'INSERT INTO songs VALUES($1, $2, $3, $4, $5, $6. $7) RETURNING id',
+      values: [id, title, year, genre, performer, duration, albumId],
     };
 
     const result = await this._pool.query(query);
 
     if (!result.rows[0].id) {
-      throw new InvariantError('Album gagal ditambahkan');
+      throw new InvariantError('Lagu gagal ditambahkan');
     }
 
     return result.rows[0].id;
+  }
+
+  async getSongs() {
+    const result = await this._pool.query('SELECT * FROM songs');
+    return result.rows.map(mapSongsDBToModel);
   }
 
   async getAlbumById(id) {
@@ -67,4 +79,4 @@ class AlbumsService {
   }
 }
 
-module.exports = AlbumsService;
+module.exports = SongsService;
