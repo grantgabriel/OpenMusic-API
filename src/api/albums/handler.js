@@ -41,11 +41,11 @@ class AlbumsHandler {
     return response;
   }
 
-  putAlbumByIdHandler(request, h) {
+  async putAlbumByIdHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
     const { id } = request.params;
 
-    this._service.editAlbumById(id, request.payload);
+    await this._service.editAlbumById(id, request.payload);
 
     const response = h.response({
       status: 'success',
@@ -55,10 +55,10 @@ class AlbumsHandler {
     return response;
   }
 
-  deleteAlbumByIdHandler(request, h) {
+  async deleteAlbumByIdHandler(request, h) {
     const { id } = request.params;
 
-    this._service.deleteAlbumById(id);
+    await this._service.deleteAlbumById(id);
 
     const response = h.response({
       status: 'success',

@@ -17,12 +17,12 @@ exports.up = (pgm) => {
       notNull: true,
     },
     performer: {
-      type: 'TEXT[]',
+      type: 'TEXT',
       notNull: true,
     },
     duration: {
-      type: 'TEXT',
-      notNull: true,
+      type: 'INTEGER',
+      notNull: false,
     },
     album_id: {
       type: 'TEXT',
